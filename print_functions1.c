@@ -1,21 +1,63 @@
 #include "main.h"
 /**
- * print_char - print character
- * @ptr: the va_list of _printf function
- * @params: the parameters passed to function
- * Return: number of printed chars
+ * printchar - Prints a single character to the standard output
+ * @c: The character to be printed
+ *
+ * Return: The number of characters printed (always 1 in this case)
  */
-int print_char(va_list ptr, params_t *params)
+int printchar(char c)
 {
-	unsigned int sum = 0, padding = 1, c = va_arg(ptr, int);
-	if (params->MINUS_FLAG)
-		sum += _putchar(c);
-	while (padding < params->width)
+	_putchar(c);
+	return (1);
+}
+/**
+ * printpercent - Prints the percentage symbol ("%") to the standard output
+ *
+ * Return: The number of characters printed (always 1 in this case)
+ */
+int printpercent(void)
+{
+	_putchar('%');
+	return (1);
+}
+/**
+ * printstring - Prints a null-terminated string to the standard output
+ * @str: The null-terminated string to be printed
+ *
+ * Return: The number of characters printed
+ */
+int printstring(const char *str)
+{
+	int count = 0;
+
+	while (*str != '\0')
 	{
-		sum += _putchar(' ');
-		padding++;
+		_putchar(*str);
+		str++;
+		count++;
 	}
-	if (!params->MINUS_FLAG)
-		sum += _putchar(c);
-	return (sum);
+	return (count);
+}
+/**
+ * printinteger - Prints an integer to the standard output
+ * @num: The integer to be printed
+ *
+ * Return: The number of characters printed
+ */
+int printinteger(int num)
+{
+	int count = 0;
+
+	if (num < 0)
+	{
+		_putchar('-');
+		count++;
+		num = -num;
+	}
+	if (num >= 10)
+	{
+		count += printinteger(num / 10);
+	}
+	_putchar('0' + num % 10);
+	return (count + 1);
 }
