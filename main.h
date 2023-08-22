@@ -42,5 +42,5 @@ int printchar(char c);
 int printpercent();
 int printstring(const char* str);
 int printinteger(int num);
-
+int printbinary(unsigned int n);
 #endif

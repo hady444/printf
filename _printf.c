@@ -8,7 +8,9 @@ int _printf(const char *format, ...)
 {
 	va_list args;
 	int count = 0;
-	
+
+	if (format == NULL)
+		return (-1);
 	va_start(args, format);
 	while (*format != '\0')
 	{
@@ -17,21 +19,19 @@ int _printf(const char *format, ...)
 			format++;
 			if (*format == 'c')
 			{
-				int c = va_arg(args, int);
-
-				count += printchar(c);
+				count += printchar(va_arg(args, int));
 			}
 			else if (*format == 's')
 			{
-				char *s = va_arg(args, char*);
-
-				count += printstring(s);
+				count += printstring(va_arg(args, char*));
 			}
 			else if (*format == 'd' || *format == 'i')
 			{
-				int num = va_arg(args, int);
-
-				count += printinteger(num);
+				count += printinteger(va_arg(args, int));
+			}
+			else if (*format == 'b')
+			{
+				count += printbinary(va_arg(args, int));
 			}
 			else if (*format == '%')
 				count += printpercent();
