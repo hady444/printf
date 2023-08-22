@@ -11,8 +11,7 @@
  *#define BUFFER_CLEAR -1
 #define INTIATE_PARAMS {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 
-/*
- * typedef struct parameters
+typedef struct parameters
 {
 	unsigned int plus_flag : 1;
 	unsigned int minus_flag : 1;
@@ -24,8 +23,7 @@
 	unsigned int width;
 	unsigned int precision;
 } params_t;
-*/
-/*
+
  * typedef strcut format_type
 {
 	char specifier;

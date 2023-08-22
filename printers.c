@@ -16,6 +16,7 @@ int _putchar(int c)
 int _puts(char *str)
 {
 	unsigned int i = 0;
+
 	while (str[i] != '\0')
 	{
 		_putchar(str[i]);

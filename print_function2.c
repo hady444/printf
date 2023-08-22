@@ -1,3 +1,5 @@
+#include "main.h"
+#include "string.h"
 /**
  * _printf_octal - octal convertor
  * @format: format
@@ -5,8 +7,8 @@
  */
 int _printf_octal(const char *format, ...)
 {
-	va_list_ args;
-	int charCount = 0;
+	va_list args;
+	int charCount = 0, i;
 
 	va_start(args, format);
 	while (*format != '\0')
@@ -20,7 +22,7 @@ int _printf_octal(const char *format, ...)
 				char buffer[32];
 
 				snprintf(buffer, sizeof(buffer), "%o", value);
-				for (int i = 0; buffer[i] != '\0'; i++)
+				for (i = 0; buffer[i] != '\0'; i++)
 				{
 					putchar(buffer[i]);
 					charCount++;
@@ -45,10 +47,9 @@ int _printf_octal(const char *format, ...)
 int _printf_HEX(const char *format, ...)
 {
 	va_list args;
+	int charCount = 0, i;
 
 	va_start(args, format);
-	int charCount = 0;
-
 	while (*format != '\0')
 	{
 		if (*format == '%')
@@ -60,7 +61,7 @@ int _printf_HEX(const char *format, ...)
 				char buffer[32];
 
 				snprintf(buffer, sizeof(buffer), "%x", value);
-				for (int i = 0; buffer[i] != '\0'; i++)
+				for (i = 0; buffer[i] != '\0'; i++)
 				{
 					putchar(buffer[i]);
 					charCount++;
@@ -85,10 +86,9 @@ int _printf_HEX(const char *format, ...)
 int _printf_reverse(const char *format, ...)
 {
 	va_list args;
+	int charCount = 0, i;
 
 	va_start(args, format);
-	int charCount = 0;
-
 	while (*format != '\0')
 	{
 		if (*format == '%')
@@ -99,7 +99,7 @@ int _printf_reverse(const char *format, ...)
 				char *str = va_arg(args, char *);
 				int length = strlen(str);
 
-				for (int i = length - 1; i >= 0; i--)
+				for (i = length - 1; i >= 0; i--)
 				{
 					putchar(str[i]);
 					charCount++;
