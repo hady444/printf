@@ -7,7 +7,7 @@
  */
 int printchar(char c)
 {
-	_putchar(c);
+	putchar(c);
 	return (1);
 }
 /**
@@ -17,7 +17,7 @@ int printchar(char c)
  */
 int printpercent(void)
 {
-	_putchar('%');
+	putchar('%');
 	return (1);
 }
 /**
@@ -32,7 +32,7 @@ int printstring(const char *str)
 
 	while (*str != '\0')
 	{
-		_putchar(*str);
+		putchar(*str);
 		str++;
 		count++;
 	}
@@ -50,7 +50,7 @@ int printinteger(int num)
 
 	if (num < 0)
 	{
-		_putchar('-');
+		putchar('-');
 		count++;
 		num = -num;
 	}
@@ -73,7 +73,7 @@ int printbinary(unsigned int n)
 
 	for (i = 0; i < 32; i++)
 	{
-		_putchar((n & (1 << i)) ? '1' : '0');
+		putchar((n & (1 << i)) ? '1' : '0');
 		count++;
 	}
 	return (count);

@@ -6,9 +6,9 @@
 #include <unistd.h>
 #include <limits.h>
 
-/*
- * #define BUFFER_SIZE 1024
- *#define BUFFER_CLEAR -1
+
+#define BUFFER_SIZE 1024
+#define BUFFER_CLEAR -1
 #define INTIATE_PARAMS {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 
 typedef struct parameters
@@ -24,12 +24,12 @@ typedef struct parameters
 	unsigned int precision;
 } params_t;
 
- * typedef strcut format_type
+typedef strcut specifier
 {
 	char specifier;
 	int (*fun)(va_list, char[], int, int, int, int);
-} fmt;
-*/
+} specifier_t;
+
 int _printf(const char *format, ...);
 /**printers*/
 int _putchar(int c);
