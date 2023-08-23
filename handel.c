@@ -15,7 +15,7 @@ int (*handel(char *s))(va_list ptr, params_t *params)
 		{'s', print_string},
 		{'%', print_percent},
 		{'b', print_binary},
-		{'p',print_address},
+		{'p', print_address},
 		{'u', print_unsigned},
 		{'X', print_HEX},
 		{'x', print_hex},

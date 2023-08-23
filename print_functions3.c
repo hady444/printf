@@ -92,7 +92,7 @@ int print_hex(va_list ptr, params_t *params)
 }
 /**
  * print_number_right_shift - df
- * @str: string
+ * @s: string
  * @params: the parameter struct
  * Return: chars printed
  */

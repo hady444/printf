@@ -65,7 +65,7 @@ int print_rev(va_list ptr, params_t *params)
 		for (i = 0; *str; str++)
 			i++;
 		str--;
-		for (; i > 0; i--, str--)
+		for (; i > 0; i--, str++)
 			charCount += _putchar(*str);
 	}
 	return (charCount);

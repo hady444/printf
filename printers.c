@@ -49,7 +49,7 @@ int print_to(char *start, char *end, char *except)
 		if (start != except)
 			sum += _putchar(*start);
 		start++;
-		
+
 	}
 	return (sum);
 }

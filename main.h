@@ -52,7 +52,8 @@ typedef struct parameters
  * @fun: Pointer to the formatting function for the specifier
  * Description: This structure represents a specifier used in formatting.
  */
-typedef struct specifier {
+typedef struct specifier
+{
 	char specifier;
 	int (*fun)(va_list, params_t *);
 } specifier_t;
