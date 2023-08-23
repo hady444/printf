@@ -21,7 +21,7 @@ int print_octal(va_list ptr, params_t params)
 	if (params->hashtag_flag && l)
 		*--str = '0';
 	params->unsign = 1;
-	return (c += print_number(str, params));
+	return (c += print_number(str, &params));
 }
 /**
  * print_HEX - Hexa convertor
@@ -46,7 +46,7 @@ int print_HEX(va_list ptr, params_t params)
 		*--str = '0';
 	}
 	params->unsign = 1;
-	return (c += print_number(str, params));
+	return (c += print_number(str, &params));
 }
 /**
  * print_rev - rerverse oeder

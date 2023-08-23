@@ -85,7 +85,7 @@ int get_flag(char *s, params_t *params);
 int get_modifier(char *s, params_t *params);
 char *get_width(char *s, params_t *params, va_list ptr);
 int get_print_func(char *s, va_list ptr, params_t *params);
-char *convert(long int num, int base, int flag, params_t *params);
+char *convert(long int num, int base, int flag, params_t params);
 int print_number(char *s, params_t *params);
 int print_number_right_shift(char *s, params_t *params);
 int print_number_left_shift(char *s, params_t *params);
