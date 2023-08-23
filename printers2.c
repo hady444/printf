@@ -65,7 +65,7 @@ char *get_precision(char *p, params_t *params, va_list ptr)
 	}
 	else
 	{
-		while (is_digit(*p))
+		while (isdigit(*p))
 			d = d * 10 + (*p++ - '0');
 	}
 	params->precision = d;
@@ -79,7 +79,7 @@ char *get_precision(char *p, params_t *params, va_list ptr)
  * @params: argf
  * Return: aparamater structstring
  */
-char *convert(long int num, int base, int flags, params_t *params)
+char *convert(long int num, int base, int flags, params_t params)
 {
 	static char *array;
 	static char buffer[50];

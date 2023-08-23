@@ -17,10 +17,10 @@ int print_octal(va_list ptr, params_t params)
 	l = (unsigned short int) va_arg(ptr, unsigned int);
 	else
 		l = (unsigned int) va_arg(ptr, unsigned int);
-	str = convert(1, 8, CONVERT_UNSIGNED, params);
-	if (params->hashtag_flag && l)
+	str = convert(l, 8, CONVERT_UNSIGNED, params);
+	if (params.hashtag_flag && l)
 		*--str = '0';
-	params->unsign = 1;
+	params.unsign = 1;
 	return (c += print_number(str, &params));
 }
 /**
@@ -35,17 +35,17 @@ int print_HEX(va_list ptr, params_t params)
 	int c = 0;
 	char *str;
 
-	if (params->l_modifier)
+	if (params.l_modifier)
 		l = (unsigned long) va_arg(ptr, unsigned long);
-	else if (params->h_modifier)
+	else if (params.h_modifier)
 		l = (unsigned short int) va_arg(ptr, unsigned int);
-	str = convert(1, 16, CONVERT_UNSIGNED, params);
-	if (params->hashtag_flag && l)
+	str = convert(l, 16, CONVERT_UNSIGNED, params);
+	if (params.hashtag_flag && l)
 	{
 		*--str = 'x';
 		*--str = '0';
 	}
-	params->unsign = 1;
+	params.unsign = 1;
 	return (c += print_number(str, &params));
 }
 /**
@@ -57,12 +57,12 @@ int print_HEX(va_list ptr, params_t params)
 int print_rev(va_list ptr, params_t params)
 {
 	int charCount = 0, i;
-	char *str = var_arg(ptr, char *);
+	char *str = va_arg(ptr, char *);
 	(void) params;
 
 	if (str)
 	{
-		for (i = 0, *str, str++)
+		for (i = 0; *str; str++)
 			i++;
 		str--;
 		for (; i > 0; i--, str--)
@@ -78,20 +78,22 @@ int print_rev(va_list ptr, params_t params)
  */
 int print_S(va_list ptr, params_t params)
 {
-	char *str = va_list(ptr, char *);
-	char *hex;
+	char *str = va_arg(ptr, char *);
 	int sum = 0;
+	(void) ptr;
+	(void) params;
 
 	if ((int)(!str))
 		return (_puts(NULL_STRING));
-	for (; *str, str++)
+	for (; *str; str++)
 	{
-		if ((*str > 0 && str < 32) || *str <= 127)
+		if ((*str > 0 && *str < 32))
 		{
 			sum += _putchar('\\');
 			sum += _putchar('x');
 		}
 	}
+	return (sum);
 }
 /**
  * print_rot13 - print
@@ -105,6 +107,7 @@ int print_rot13(va_list ptr, params_t params)
 	int count = 0;
 	char arr[] = "NOPQRSTUVWXYZABCDEFGHIJKLM    nopqrstuvwxyzabcdefghijklm";
 	char *a = va_arg(ptr, char *);
+	(void) params;
 
 	i = 0;
 	index = 0;

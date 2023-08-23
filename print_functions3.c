@@ -9,13 +9,13 @@ int print_unsigned(va_list ptr, params_t params)
 {
 	unsigned long l;
 
-	if (params->l_modifier)
+	if (params.l_modifier)
 		l = (unsigned long) va_arg(ptr, unsigned long);
-	else if (params->h_modifier)
+	else if (params.h_modifier)
 		l = (unsigned short int) va_arg(ptr, unsigned int);
 	else
 		l = (unsigned int) va_arg(ptr, unsigned int);
-	return (print_number(convert(1, 10, CONVERT_UNSIGNED, params), params));
+	return (print_number(convert(l, 10, CONVERT_UNSIGNED, params), &params));
 }
 /**
  * print_address - prints address
@@ -25,16 +25,16 @@ int print_unsigned(va_list ptr, params_t params)
  */
 int print_address(va_list ptr, params_t params)
 {
-	unsigned long int n = va_arg(ptr unsigned long int);
+	unsigned long int n = va_arg(ptr, unsigned long int);
 	char *str;
 
 	if (!n)
 		return (_puts("(nil)"));
 
-	str = convert(n, 16, CONVERT_UNSIGNED, | CONVERT LOWERCASE, params);
+	str = convert(n, 16, CONVERT_UNSIGNED | CONVERT_LOWERCASE, params);
 	*--str = 'x';
 	*--str = '0';
-	return (print_number(str, params));
+	return (print_number(str, &params));
 }
 /**
  * print_number - pr
@@ -42,12 +42,12 @@ int print_address(va_list ptr, params_t params)
  * @params: the parameter struct
  * Return: chars printed
  */
-int print_number(char *str, params_t params)
+int print_number(char *str, params_t *params)
 {
 	unsigned int i = strlen(str);
 	int neg = (!params->unsign && *str == '-');
 
-	if (!params->precision != UNIT_MAX)
+	if (params->precision != UINT_MAX)
 		while (i++ < params->precision)
 			*--str = '0';
 	if (neg)
@@ -66,23 +66,22 @@ int print_number(char *str, params_t params)
 int print_hex(va_list ptr, params_t params)
 {
 	unsigned long l;
-	int c;
 	char *str;
 
-	if (params->l_modifier)
+	if (params.l_modifier)
 		l = (unsigned long) va_arg(ptr, unsigned long);
-	else if (params->h_modifier)
-		l = (unsigned short int) va_arg(ptr unsigned int);
+	else if (params.h_modifier)
+		l = (unsigned short int) va_arg(ptr, unsigned int);
 	else
-		l = (unsigned int) va_arg(ptr unsigned int);
-	str = convert(1, 16, CONVERT UNSIGNED | CONVERT LOWERCASE, params);
-	if (params->hashtag_flag && l)
+		l = (unsigned int) va_arg(ptr, unsigned int);
+	str = convert(l, 16, CONVERT_UNSIGNED | CONVERT_LOWERCASE, params);
+	if (params.hashtag_flag && l)
 	{
 	*--str = 'x';
 	*--str = '0';
 	}
-	params->unsign = 1;
-	return (c += print_number(str, params));
+	params.unsign = 1;
+	return (print_number(str, &params));
 }
 /**
  * print_number_right_shift - df
@@ -90,16 +89,16 @@ int print_hex(va_list ptr, params_t params)
  * @params: the parameter struct
  * Return: chars printed
  */
-int print_number_right_shift(char *s, params_t *params);
+int print_number_right_shift(char *s, params_t *params)
 {
-	unsigned int n = 0, neg, neg2, i = strlen(str);
+	unsigned int n = 0, neg, neg2, i = strlen(s);
 	char pad_char = ' ';
 
 	if (params->zero_flag && !params->minus_flag)
 		pad_char = '0';
-	neg = neg2 = (!params->unsign && *str == '-');
+	neg = neg2 = (!params->unsign && *s == '-');
 	if (neg && i < params->width && pad_char == '0' && !params->minus_flag)
-		str++;
+		s++;
 	else
 		neg = 0;
 	if ((params->plus_flag && params->space_flag && !neg2))
@@ -120,6 +119,6 @@ int print_number_right_shift(char *s, params_t *params);
 	else if (!params->plus_flag && params->space_flag &&
 			!neg2 && !params->unsign && params->zero_flag)
 		n += _putchar(' ');
-	n += _puts(str);
+	n += _puts(s);
 	return (n);
 }

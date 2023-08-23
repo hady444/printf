@@ -7,7 +7,7 @@
 int _putchar(int c)
 {
 	static int i;
-	static char buf[OUTBUT_BUF_SIZE];
+	static char buf[OUTPUT_BUF_SIZE];
 
 	if (c == BUFFER_CLEAR || i >= OUTPUT_BUF_SIZE)
 	{
@@ -29,8 +29,7 @@ int _puts(char *str)
 
 	while (*str)
 	{
-		_putchar(str[i]);
-		i++;
+		_putchar(*str++);
 	}
 	return (str - a);
 }
@@ -45,10 +44,12 @@ int print_to(char *start, char *end, char *except)
 {
 	int sum = 0;
 
-	while (start != except)
+	while (start <= end)
 	{
-		sum += _putchar(*start);
+		if (start != except)
+			sum += _putchar(*start);
 		start++;
+		
 	}
 	return (sum);
 }
@@ -61,10 +62,10 @@ int print_to(char *start, char *end, char *except)
  */
 int get_print_func(char *s, va_list ptr, params_t *params)
 {
-	int (*f)(va_listm, params_t) = handel(s);
+	int (*f)(va_list, params_t) = handel(s);
 
 	if (f)
-		return (f(ptr, params));
+		return (f(ptr, *params));
 	return (0);
 }
 /**
@@ -86,7 +87,7 @@ int get_flag(char *s, params_t *params)
 			i = params->space_flag = 1;
 			break;
 		case '#':
-			i = params->hash_flag = 1;
+			i = params->hashtag_flag = 1;
 			break;
 		case '-':
 			i = params->minus_flag = 1;

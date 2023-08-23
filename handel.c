@@ -17,7 +17,7 @@ int (*handel(char *s))(va_list ptr, params_t params)
 		{'b', print_binary},
 		{'p',print_address},
 		{'u', print_unsigned},
-		{'X', print_Hex},
+		{'X', print_HEX},
 		{'x', print_hex},
 		{'o', print_octal},
 		{'r', print_rev},

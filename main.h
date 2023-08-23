@@ -12,7 +12,7 @@
 #define BUFFER_CLEAR -1
 #define PARAMS_INIT {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 #define CONVERT_LOWERCASE 1
-#define CONVERT_UPPERCASE 2
+#define CONVERT_UNSIGNED 2
 
 /**
  * struct parameters - Formatting parameters structure
@@ -74,7 +74,7 @@ int print_integer(va_list ptr, params_t params);
 int print_binary(va_list ptr, params_t params);
 int print_unsigned(va_list ptr, params_t params);
 int print_address(va_list ptr, params_t params);
-int print_Hex(va_list ptr, params_t params);
+int print_HEX(va_list ptr, params_t params);
 int print_hex(va_list ptr, params_t params);
 int print_octal(va_list ptr, params_t params);
 int print_S(va_list ptr, params_t params);
