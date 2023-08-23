@@ -5,17 +5,17 @@
  * @params: the parameters struct
  * Return: bytes printed
  */
-int print_unsigned(va_list ptr, params_t params)
+int print_unsigned(va_list ptr, params_t *params)
 {
 	unsigned long l;
 
-	if (params.l_modifier)
+	if (params->l_modifier)
 		l = (unsigned long) va_arg(ptr, unsigned long);
-	else if (params.h_modifier)
+	else if (params->h_modifier)
 		l = (unsigned short int) va_arg(ptr, unsigned int);
 	else
 		l = (unsigned int) va_arg(ptr, unsigned int);
-	return (print_number(convert(l, 10, CONVERT_UNSIGNED, params), &params));
+	return (print_number(convert(l, 10, CONVERT_UNSIGNED, params), params));
 }
 /**
  * print_address - prints address
@@ -23,7 +23,7 @@ int print_unsigned(va_list ptr, params_t params)
  * @params: the parameters struct
  * Return: bytes printed
  */
-int print_address(va_list ptr, params_t params)
+int print_address(va_list ptr, params_t *params)
 {
 	unsigned long int n = va_arg(ptr, unsigned long int);
 	char *str;
@@ -34,7 +34,7 @@ int print_address(va_list ptr, params_t params)
 	str = convert(n, 16, CONVERT_UNSIGNED | CONVERT_LOWERCASE, params);
 	*--str = 'x';
 	*--str = '0';
-	return (print_number(str, &params));
+	return (print_number(str, params));
 }
 /**
  * print_number - pr
@@ -47,6 +47,13 @@ int print_number(char *str, params_t *params)
 	unsigned int i = strlen(str);
 	int neg = (!params->unsign && *str == '-');
 
+	if (!params->precision && *str == '0' && !str[1])
+		str = "";
+	if (neg)
+	{
+		str++;
+		i--;
+	}
 	if (params->precision != UINT_MAX)
 		while (i++ < params->precision)
 			*--str = '0';
@@ -63,25 +70,25 @@ int print_number(char *str, params_t *params)
  * @params: the parameters struct
  * Return: bytes printed
  */
-int print_hex(va_list ptr, params_t params)
+int print_hex(va_list ptr, params_t *params)
 {
 	unsigned long l;
 	char *str;
 
-	if (params.l_modifier)
+	if (params->l_modifier)
 		l = (unsigned long) va_arg(ptr, unsigned long);
-	else if (params.h_modifier)
+	else if (params->h_modifier)
 		l = (unsigned short int) va_arg(ptr, unsigned int);
 	else
 		l = (unsigned int) va_arg(ptr, unsigned int);
 	str = convert(l, 16, CONVERT_UNSIGNED | CONVERT_LOWERCASE, params);
-	if (params.hashtag_flag && l)
+	if (params->hashtag_flag && l)
 	{
 	*--str = 'x';
 	*--str = '0';
 	}
-	params.unsign = 1;
-	return (print_number(str, &params));
+	params->unsign = 1;
+	return (print_number(str, params));
 }
 /**
  * print_number_right_shift - df

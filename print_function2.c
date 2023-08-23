@@ -5,23 +5,23 @@
  * @params: fdg
  * Return: length
  */
-int print_octal(va_list ptr, params_t params)
+int print_octal(va_list ptr, params_t *params)
 {
 	unsigned long l;
 	int c = 0;
 	char *str;
 
-	if (params.l_modifier)
+	if (params->l_modifier)
 		l = (unsigned long) va_arg(ptr, unsigned long);
-	else if (params.h_modifier)
+	else if (params->h_modifier)
 	l = (unsigned short int) va_arg(ptr, unsigned int);
 	else
 		l = (unsigned int) va_arg(ptr, unsigned int);
 	str = convert(l, 8, CONVERT_UNSIGNED, params);
-	if (params.hashtag_flag && l)
+	if (params->hashtag_flag && l)
 		*--str = '0';
-	params.unsign = 1;
-	return (c += print_number(str, &params));
+	params->unsign = 1;
+	return (c += print_number(str, params));
 }
 /**
  * print_HEX - Hexa convertor
@@ -29,24 +29,24 @@ int print_octal(va_list ptr, params_t params)
  * @params: fgf
  * Return: length
  */
-int print_HEX(va_list ptr, params_t params)
+int print_HEX(va_list ptr, params_t *params)
 {
 	unsigned long l;
 	int c = 0;
 	char *str;
 
-	if (params.l_modifier)
+	if (params->l_modifier)
 		l = (unsigned long) va_arg(ptr, unsigned long);
-	else if (params.h_modifier)
+	else if (params->h_modifier)
 		l = (unsigned short int) va_arg(ptr, unsigned int);
 	str = convert(l, 16, CONVERT_UNSIGNED, params);
-	if (params.hashtag_flag && l)
+	if (params->hashtag_flag && l)
 	{
 		*--str = 'x';
 		*--str = '0';
 	}
-	params.unsign = 1;
-	return (c += print_number(str, &params));
+	params->unsign = 1;
+	return (c += print_number(str, params));
 }
 /**
  * print_rev - rerverse oeder
@@ -54,7 +54,7 @@ int print_HEX(va_list ptr, params_t params)
  * @params: parameters
  * Return: length
  */
-int print_rev(va_list ptr, params_t params)
+int print_rev(va_list ptr, params_t *params)
 {
 	int charCount = 0, i;
 	char *str = va_arg(ptr, char *);
@@ -76,7 +76,7 @@ int print_rev(va_list ptr, params_t params)
  * @params: parameters
  * Return: length
  */
-int print_S(va_list ptr, params_t params)
+int print_S(va_list ptr, params_t *params)
 {
 	char *str = va_arg(ptr, char *);
 	int sum = 0;
@@ -101,7 +101,7 @@ int print_S(va_list ptr, params_t params)
  * @params: parameters
  * Return: length
  */
-int print_rot13(va_list ptr, params_t params)
+int print_rot13(va_list ptr, params_t *params)
 {
 	int i, index;
 	int count = 0;

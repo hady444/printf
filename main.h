@@ -54,11 +54,11 @@ typedef struct parameters
  */
 typedef struct specifier {
 	char specifier;
-	int (*fun)(va_list, params_t);
+	int (*fun)(va_list, params_t *);
 } specifier_t;
 
 int _printf(const char *format, ...);
-int (*handel(char *s))(va_list ptr, params_t params);
+int (*handel(char *s))(va_list ptr, params_t *params);
 /**printers*/
 int _putchar(int c);
 int _puts(char *str);
@@ -67,25 +67,25 @@ int _puts(char *str);
 /*
  * int print_char(va_list ptr, params_t *params);
  */
-int print_char(va_list ptr, params_t params);
-int print_percent(va_list ptr, params_t params);
-int print_string(va_list ptr, params_t params);
-int print_integer(va_list ptr, params_t params);
-int print_binary(va_list ptr, params_t params);
-int print_unsigned(va_list ptr, params_t params);
-int print_address(va_list ptr, params_t params);
-int print_HEX(va_list ptr, params_t params);
-int print_hex(va_list ptr, params_t params);
-int print_octal(va_list ptr, params_t params);
-int print_S(va_list ptr, params_t params);
-int print_rev(va_list ptr, params_t params);
-int print_rot13(va_list ptr, params_t params);
+int print_char(va_list ptr, params_t *params);
+int print_percent(va_list ptr, params_t *params);
+int print_string(va_list ptr, params_t *params);
+int print_integer(va_list ptr, params_t *params);
+int print_binary(va_list ptr, params_t *params);
+int print_unsigned(va_list ptr, params_t *params);
+int print_address(va_list ptr, params_t *params);
+int print_HEX(va_list ptr, params_t *params);
+int print_hex(va_list ptr, params_t *params);
+int print_octal(va_list ptr, params_t *params);
+int print_S(va_list ptr, params_t *params);
+int print_rev(va_list ptr, params_t *params);
+int print_rot13(va_list ptr, params_t *params);
 int print_to(char *start, char *stop, char *except);
 int get_flag(char *s, params_t *params);
 int get_modifier(char *s, params_t *params);
 char *get_width(char *s, params_t *params, va_list ptr);
 int get_print_func(char *s, va_list ptr, params_t *params);
-char *convert(long int num, int base, int flag, params_t params);
+char *convert(long int num, int base, int flag, params_t *params);
 int print_number(char *s, params_t *params);
 int print_number_right_shift(char *s, params_t *params);
 int print_number_left_shift(char *s, params_t *params);

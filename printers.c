@@ -62,10 +62,10 @@ int print_to(char *start, char *end, char *except)
  */
 int get_print_func(char *s, va_list ptr, params_t *params)
 {
-	int (*f)(va_list, params_t) = handel(s);
+	int (*f)(va_list, params_t *) = handel(s);
 
 	if (f)
-		return (f(ptr, *params));
+		return (f(ptr, params));
 	return (0);
 }
 /**

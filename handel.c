@@ -4,7 +4,7 @@
  * @s: given string
  * Return: length
  */
-int (*handel(char *s))(va_list ptr, params_t params)
+int (*handel(char *s))(va_list ptr, params_t *params)
 {
 	int i = 0;
 
