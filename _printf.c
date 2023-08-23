@@ -32,7 +32,8 @@ int _printf(const char *format, ...)
 		if (get_modifier(p, &params))
 			p++;
 		if (!handel(p))
-			sum += print_to(start, p, params.l_modifier || params.h_modifier ? p - 1 : 0);
+			sum += print_to(start, p, params.l_modifier || params.h_modifier ?
+					p - 1 : 0);
 		else
 			sum += get_print_func(p, ptr, &params);
 	}
