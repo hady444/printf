@@ -6,7 +6,17 @@
  */
 int _putchar(int c)
 {
-	return (write(1, &c, 1));
+	static int i;
+	static char buf[OUTBUT_BUF_SIZE];
+
+	if (c == BUFFER_CLEAR || i >= OUTPUT_BUF_SIZE)
+	{
+		write(1, &buf, i);
+		i = 0;
+	}
+	if (c != BUFFER_CLEAR)
+		buf[i++] = c;
+	return (1);
 }
 /**
  * _puts - print passed string
@@ -15,13 +25,75 @@ int _putchar(int c)
  */
 int _puts(char *str)
 {
-	unsigned int i = 0;
+	char *a = str;
 
-	while (str[i] != '\0')
+	while (*str)
 	{
 		_putchar(str[i]);
 		i++;
 	}
+	return (str - a);
+}
+/**
+ * print_to - print
+ * @start: start
+ * @end: end
+ * @except: exception
+ * Return: length
+ */
+int print_to(char *start, char *end, char *except)
+{
+	int sum = 0;
+
+	while (start != except)
+	{
+		sum += _putchar(*start);
+		start++;
+	}
+	return (sum);
+}
+/**
+ * get_print_func - finds format func
+ * @s: string
+ * @ptr: pointr
+ * @params: parameters
+ * Return: length
+ */
+int get_print_func(char *s, va_list ptr, params_t *params)
+{
+	int (*f)(va_listm, params_t) = handel(s);
+
+	if (f)
+		return (f(ptr, params));
+	return (0);
+}
+/**
+ * get_flag - find flag
+ * @s: string
+ * @params: parameters
+ * Return: if flag valid
+ */
+int get_flag(char *s, params_t *params)
+{
+	int i = 0;
+
+	switch (*s)
+	{
+		case '+':
+			i = params->plus_flag = 1;
+			break;
+		case ' ':
+			i = params->space_flag = 1;
+			break;
+		case '#':
+			i = params->hash_flag = 1;
+			break;
+		case '-':
+			i = params->minus_flag = 1;
+			break;
+		case '0':
+			i = params->zero_flag = 1;
+			break;
+	}
 	return (i);
 }
-

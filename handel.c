@@ -1,21 +1,35 @@
 #include "main.h"
-
-int (*fun(char *s))(va_list ap, params_t params)
+/**
+ * handel - try to handel matching function
+ * @s: given string
+ * Return: length
+ */
+int (*handel(char *s))(va_list ptr, params_t params)
 {
 	int i = 0;
 
-	specifier_t specifier = {
-		{'c', printchar},
-		{'d', printinteger},
-		{'i', printinteger},
-		{'s', printstring},
-		{'%', printpercent},
-		{'b', printbinary},
-		{NULL, NULL}}
-	while (specifier[i].specifier)
+	specifier_t specifierr[] = {
+		{'c', print_char},
+		{'d', print_integer},
+		{'i', print_integer},
+		{'s', print_string},
+		{'%', print_percent},
+		{'b', print_binary},
+		{'p',print_address},
+		{'u', print_unsigned},
+		{'X', print_Hex},
+		{'x', print_hex},
+		{'o', print_octal},
+		{'r', print_rev},
+		{'S', print_S},
+		{'R', print_rot13},
+		{'\0', NULL}
+	};
+
+	while (specifierr[i].specifier)
 	{
-		if (specifier[i].specifier == s[0])
-			return (specifier[i].fun);
+		if (specifierr[i].specifier == s[0])
+			return (specifierr[i].fun);
 		i++;
 	}
 	return (NULL);

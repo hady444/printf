@@ -6,47 +6,9 @@
  */
 int _printf(const char *format, ...)
 {
-	va_list args;
-	int count = 0;
-
-	va_start(args, format);
-	while (*format != '\0')
-	{
-		if (*format == '%')
-		{
-			format++;
-			if (*format == 'c')
-			{
-				count += printchar(va_arg(args, int));
-			}
-			else if (*format == 's')
-			{
-				count += printstring(va_arg(args, char*));
-			}
-			else if (*format == 'd' || *format == 'i')
-			{
-				count += printinteger(va_arg(args, int));
-			}
-			else if (*format == 'b')
-			{
-				count += printbinary(va_arg(args, int));
-			}
-			else if (*format == '%')
-				count += printpercent();
-		}
-		else
-			count += printchar(*format);
-		format++;
-	}
-	va_end(args);
-	return (count);
-}
-/*
- * int _printf(const char *format, ...)
-{
 	int sum;
 	char *p, *start;
-
+	params_t params = PARAMS_INIT;
 	va_list ptr;
 
 	va_start(ptr, format);
@@ -55,6 +17,7 @@ int _printf(const char *format, ...)
 	sum = 0;
 	for (p = (char *)format; *p; p++)
 	{
+		init_params(&params, ptr);
 		if (*p != '%')
 		{
 			sum += _putchar(*p);
@@ -62,8 +25,14 @@ int _printf(const char *format, ...)
 		}
 		start = p;
 		p++;
+		while (get_flag(p, &params))
+			p++;
+		p = get_width(p, &params, ptr);
+		p = get_precision(p, &params, ptr);
+		if (get_modifier(p, &params))
+			p++;
 		if (!handel(p))
-	sum += print_to(start, p, params.l_modifier || params.h_modifier ? p - 1 : 0);
+			sum += print_to(start, p, params.l_modifier || params.h_modifier ? p - 1 : 0);
 		else
 			sum += get_print_func(p, ptr, &params);
 	}
@@ -71,4 +40,4 @@ int _printf(const char *format, ...)
 	va_end(ptr);
 	return (sum);
 }
-*/
+

@@ -1,80 +1,110 @@
 #include "main.h"
 /**
- * printchar - Prints a single character to the standard output
- * @c: The character to be printed
+ * print_char - Prints a single character to the standard output
+ * @ptr: valist
+ * @params: passed parameters
  *
  * Return: The number of characters printed (always 1 in this case)
  */
-int printchar(char c)
+int print_char(va_list ptr, params_t params)
 {
-	putchar(c);
-	return (1);
+	char padding = ' ';
+	unsigned int pad = 1;
+	unsigned int sum = 0;
+	unsigned int ch = va_arg(ptr, int);
+
+	if (params->minus_flag)
+		sum += _putchar(ch);
+	while (pad++ < params->width)
+		_putchar(padding);
+	if (!params->minus_flag)
+		sum += _putchar(ch);
+	return (sum);
 }
 /**
- * printpercent - Prints the percentage symbol ("%") to the standard output
- *
+ * print_percent - Prints the percentage symbol ("%") to the standard output
+ * @ptr: valist
+ * @params: passed parameters
  * Return: The number of characters printed (always 1 in this case)
  */
-int printpercent(void)
+int print_percent(va_list ptr, params_t params)
 {
+	(void) ptr;
+	(void) params;
 	putchar('%');
 	return (1);
 }
 /**
- * printstring - Prints a null-terminated string to the standard output
- * @str: The null-terminated string to be printed
- *
+ * print_string - Prints a null-terminated string to the standard output
+ * @ptr: valist
+ * @params: passed parameters
  * Return: The number of characters printed
  */
-int printstring(const char *str)
+int print_string(va_list ptr, params_t params)
 {
-	int count = 0;
+	char *str = va_arg(ptr, char *), padding = ' ';
+	unsigned int sum = 0, pad = 0, i = 0, j;
 
-	while (*str != '\0')
+	(void) params;
+	switch ((int) (!str))
+	case 1:
+		str = NULL_STRING;
+
+	j = pad = strlen(str);
+	if (params->precision < pad)
+		j = pad = params->precision;
+	if (params->minus_flag)
 	{
-		putchar(*str);
-		str++;
-		count++;
+		if (params->precision != UNIT_MAX)
+			for (i = 0; i < pad; i++)
+				sum += _putchar(*str++);
+		else
+			sum += _puts(str);
 	}
-	return (count);
+	while (j++ < params->width)
+		sum += _putchar(padding);
+	if (!params->minus_flag)
+	{
+		if (params->precision != UNIT_MAX)
+			for (i = 0; i < pad; i++)
+				sum += _putchar(*str++);
+		else
+			sum += _puts(str);
+	}
+	return (sum);
 }
 /**
- * printinteger - Prints an integer to the standard output
- * @num: The integer to be printed
- *
+ * print_integer - Prints an integer to the standard output
+ * @ptr: valist
+ * @params: passed parameters
  * Return: The number of characters printed
  */
-int printinteger(int num)
+int print_integer(va_list ptr, params_t params)
 {
-	int count = 0;
+	long l;
 
-	if (num < 0)
-	{
-		putchar('-');
-		count++;
-		num = -num;
-	}
-	if (num >= 10)
-	{
-		count += printinteger(num / 10);
-	}
-	_putchar('0' + num % 10);
-	return (count + 1);
+	if (params->l_modifier)
+		l = va_arg(ptr, long);
+	else if (params->h_modifier)
+		l = (short int) va_arg(ptr, int);
+	else
+		l = (int) va_arg(ptr, int);
+	return (print_number(convert(1, 10, 0, params), params));
 }
 /**
- * printbinary - Prints an integer to the standard output
- * @n: The integer to be printed
- *
+ * print_binary - Prints an integer to the standard output
+ * @ptr: The integer to be printed
+ * @params: fddf
  * Return: The number of characters printed
  */
-int printbinary(unsigned int n)
+int print_binary(va_list ptr, params_t params)
 {
-	int count = 0, i;
+	unsigned int n = va_arg(ptr, unsigned int);
+	char *str = convert(n, 2, CONVERT_UNSIGNED, params);
+	int c = 0;
 
-	for (i = 0; i < 32; i++)
-	{
-		putchar((n & (1 << i)) ? '1' : '0');
-		count++;
-	}
-	return (count);
+	if (params->hashtag_flag && n)
+		*--str = '0';
+	params->unsign = 1;
+	return (c += print_number(str, params));
 }

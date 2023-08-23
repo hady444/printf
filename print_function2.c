@@ -1,118 +1,123 @@
 #include "main.h"
-#include "string.h"
 /**
- * _printf_octal - octal convertor
- * @format: format
+ * print_octal - octal convertor
+ * @ptr: format
+ * @params: fdg
  * Return: length
  */
-int _printf_octal(const char *format, ...)
+int print_octal(va_list ptr, params_t params)
 {
-	va_list args;
-	int charCount = 0, i;
+	unsigned long l;
+	int c = 0;
+	char *str;
 
-	va_start(args, format);
-	while (*format != '\0')
+	if (params.l_modifier)
+		l = (unsigned long) va_arg(ptr, unsigned long);
+	else if (params.h_modifier)
+	l = (unsigned short int) va_arg(ptr, unsigned int);
+	else
+		l = (unsigned int) va_arg(ptr, unsigned int);
+	str = convert(1, 8, CONVERT_UNSIGNED, params);
+	if (params->hashtag_flag && l)
+		*--str = '0';
+	params->unsign = 1;
+	return (c += print_number(str, params));
+}
+/**
+ * print_HEX - Hexa convertor
+ * @ptr: format
+ * @params: fgf
+ * Return: length
+ */
+int print_HEX(va_list ptr, params_t params)
+{
+	unsigned long l;
+	int c = 0;
+	char *str;
+
+	if (params->l_modifier)
+		l = (unsigned long) va_arg(ptr, unsigned long);
+	else if (params->h_modifier)
+		l = (unsigned short int) va_arg(ptr, unsigned int);
+	str = convert(1, 16, CONVERT_UNSIGNED, params);
+	if (params->hashtag_flag && l)
 	{
-		if (*format == '%')
-		{
-			format++;
-			if (*format == 'o')
-			{
-				unsigned int value = va_arg(args, unsigned int);
-				char buffer[32];
-
-				snprintf(buffer, sizeof(buffer), "%o", value);
-				for (i = 0; buffer[i] != '\0'; i++)
-				{
-					putchar(buffer[i]);
-					charCount++;
-				}
-			}
-		}
-		else
-		{
-			putchar(*format);
-			charCount++;
-		}
-		format++;
+		*--str = 'x';
+		*--str = '0';
 	}
-	va_end(args);
+	params->unsign = 1;
+	return (c += print_number(str, params));
+}
+/**
+ * print_rev - rerverse oeder
+ * @ptr: valist
+ * @params: parameters
+ * Return: length
+ */
+int print_rev(va_list ptr, params_t params)
+{
+	int charCount = 0, i;
+	char *str = var_arg(ptr, char *);
+	(void) params;
+
+	if (str)
+	{
+		for (i = 0, *str, str++)
+			i++;
+		str--;
+		for (; i > 0; i--, str--)
+			charCount += _putchar(*str);
+	}
 	return (charCount);
 }
 /**
- * _printf_HEX - Hexa convertor
- * @format: format
+ * print_S - print
+ * @ptr: valist
+ * @params: parameters
  * Return: length
  */
-int _printf_HEX(const char *format, ...)
+int print_S(va_list ptr, params_t params)
 {
-	va_list args;
-	int charCount = 0, i;
+	char *str = va_list(ptr, char *);
+	char *hex;
+	int sum = 0;
 
-	va_start(args, format);
-	while (*format != '\0')
+	if ((int)(!str))
+		return (_puts(NULL_STRING));
+	for (; *str, str++)
 	{
-		if (*format == '%')
+		if ((*str > 0 && str < 32) || *str <= 127)
 		{
-			format++;
-			if (*format == 'x')
-			{
-				unsigned int value = va_arg(args, unsigned int);
-				char buffer[32];
-
-				snprintf(buffer, sizeof(buffer), "%x", value);
-				for (i = 0; buffer[i] != '\0'; i++)
-				{
-					putchar(buffer[i]);
-					charCount++;
-				}
-			}
+			sum += _putchar('\\');
+			sum += _putchar('x');
 		}
-		else
-		{
-			putchar(*format);
-			charCount++;
-		}
-		format++;
 	}
-	va_end(args);
-	return (charCount);
 }
 /**
- * _printf_reverse - rerverse oeder
- * @format: format
+ * print_rot13 - print
+ * @ptr: valist
+ * @params: parameters
  * Return: length
  */
-int _printf_reverse(const char *format, ...)
+int print_rot13(va_list ptr, params_t params)
 {
-	va_list args;
-	int charCount = 0, i;
+	int i, index;
+	int count = 0;
+	char arr[] = "NOPQRSTUVWXYZABCDEFGHIJKLM    nopqrstuvwxyzabcdefghijklm";
+	char *a = va_arg(ptr, char *);
 
-	va_start(args, format);
-	while (*format != '\0')
+	i = 0;
+	index = 0;
+	while (a[i])
 	{
-		if (*format == '%')
+		if ((a[i] >= 'A' && a[i] <= 'Z') || (a[i] >= 'a' && a[i] <= 'z'))
 		{
-			format++;
-			if (*format == 'r')
-			{
-				char *str = va_arg(args, char *);
-				int length = strlen(str);
-
-				for (i = length - 1; i >= 0; i--)
-				{
-					putchar(str[i]);
-					charCount++;
-				}
-			}
+			index = a[i] - 65;
+			count += _putchar(arr[index]);
 		}
 		else
-		{
-			putchar(*format);
-			charCount++;
-		}
-		format++;
+			count += _putchar(arr[index]);
+		i++;
 	}
-	va_end(args);
-	return (charCount);
+	return (count);
 }
