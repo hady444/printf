@@ -31,8 +31,7 @@ int print_percent(va_list ptr, params_t *params)
 {
 	(void) ptr;
 	(void) params;
-	putchar('%');
-	return (1);
+	return (_putchar('%'));
 }
 /**
  * print_string - Prints a null-terminated string to the standard output
@@ -50,7 +49,7 @@ int print_string(va_list ptr, params_t *params)
 	case 1:
 		str = NULL_STRING;
 
-	j = pad = strlen(str);
+	j = pad = _strlen(str);
 	if (params->precision < pad)
 		j = pad = params->precision;
 	if (params->minus_flag)
