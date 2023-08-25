@@ -80,13 +80,15 @@ int print_rev(va_list ptr, params_t *params)
  */
 int print_S(va_list ptr, params_t *params)
 {
-	char *str = va_arg(ptr, char *), *hex;
+	char *str = va_arg(ptr, char *);
+	char *hex;
 	int sum = 0;
 
 	if ((int) (!str))
 		return (_puts(NULL_STRING));
 	for (; *str; str++)
 	{
+		if (*str > 0 && *str < 32 && *str >= 127)
 		{
 			sum += _putchar('\\');
 			sum += _putchar('x');
