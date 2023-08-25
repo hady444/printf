@@ -67,7 +67,7 @@ int print_rev(va_list ptr, params_t *params)
 		for (i = 0; *str; str++)
 			i++;
 		str--;
-		for (; i > 0; i--, str++)
+		for (; i > 0; i--, str--)
 			charCount += _putchar(*str);
 	}
 	return (charCount);
@@ -112,7 +112,8 @@ int print_rot13(va_list ptr, params_t *params)
 {
 	int i, index;
 	int count = 0;
-	char arr[] = "NOPQRSTUVWXYZABCDEFGHIJKLM    nopqrstuvwxyzabcdefghijklm";
+	char arr[] =
+		"NOPQRSTUVWXYZABCDEFGHIJKLM    nopqrstuvwxyzabcdefghijklm";
 	char *a = va_arg(ptr, char *);
 	(void) params;
 
@@ -126,7 +127,7 @@ int print_rot13(va_list ptr, params_t *params)
 			count += _putchar(arr[index]);
 		}
 		else
-			count += _putchar(arr[index]);
+			count += _putchar(a[index]);
 		i++;
 	}
 	return (count);
