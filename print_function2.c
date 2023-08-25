@@ -83,11 +83,10 @@ int print_S(va_list ptr, params_t *params)
 	char *str = va_arg(ptr, char *), *hex;
 	int sum = 0;
 
-	if ((int)(!str))
+	if ((int) (!str))
 		return (_puts(NULL_STRING));
 	for (; *str; str++)
 	{
-		if ((*str > 0 && *str < 32 || *str >= 127))
 		{
 			sum += _putchar('\\');
 			sum += _putchar('x');
@@ -97,9 +96,7 @@ int print_S(va_list ptr, params_t *params)
 			sum += _puts(hex);
 		}
 		else
-		{
 			sum += _putchar(*str);
-		}
 	}
 	return (sum);
 }
