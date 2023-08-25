@@ -39,6 +39,8 @@ int print_HEX(va_list ptr, params_t *params)
 		l = (unsigned long) va_arg(ptr, unsigned long);
 	else if (params->h_modifier)
 		l = (unsigned short int) va_arg(ptr, unsigned int);
+	else
+		l = (unsigned int) va_arg(ptr, unsigned int);
 	str = convert(l, 16, CONVERT_UNSIGNED, params);
 	if (params->hashtag_flag && l)
 	{
