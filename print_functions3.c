@@ -99,7 +99,7 @@ int print_hex(va_list ptr, params_t *params)
  */
 int print_number_right_shift(char *s, params_t *params)
 {
-	unsigned int n = 0, neg, neg2, i = strlen(s);
+	unsigned int n = 0, neg, neg2, i = _strlen(s);
 	char pad_char = ' ';
 
 	if (params->zero_flag && !params->minus_flag)
@@ -109,7 +109,8 @@ int print_number_right_shift(char *s, params_t *params)
 		s++;
 	else
 		neg = 0;
-	if ((params->plus_flag && params->space_flag && !neg2))
+	if ((params->plus_flag && !neg2) ||
+		(!params->plus_flag && params->space_flag && !neg2))
 		i++;
 	if (neg && pad_char == '0')
 		n += _putchar('-');
