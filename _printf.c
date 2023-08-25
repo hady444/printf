@@ -6,15 +6,16 @@
  */
 int _printf(const char *format, ...)
 {
-	int sum;
+	int sum = 0;
 	char *p, *start;
 	params_t params = PARAMS_INIT;
 	va_list ptr;
 
 	va_start(ptr, format);
-	if (!format)
+	if (!format || (format[0] == '%' && !format[1]))
 		return (-1);
-	sum = 0;
+	if (format[0] == '%' && (format[1] == ' ' && !format[2]))
+		return (-1);
 	for (p = (char *)format; *p; p++)
 	{
 		init_params(&params, ptr);
