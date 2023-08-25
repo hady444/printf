@@ -5,8 +5,8 @@
 #include <stdarg.h>
 #include <unistd.h>
 #include <limits.h>
-#include <string.h>
-#include <ctype.h>
+
+
 #define NULL_STRING "(null)"
 #define OUTPUT_BUF_SIZE 1024
 #define BUFFER_CLEAR -1
