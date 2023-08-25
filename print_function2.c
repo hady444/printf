@@ -110,24 +110,31 @@ int print_S(va_list ptr, params_t *params)
  */
 int print_rot13(va_list ptr, params_t *params)
 {
-	int i, index;
-	int count = 0;
-	char arr[] = "NOPQRSTUVWXYZABCDEFGHIJKLM	nopqrstuvwxyzabcdefghijklm";
-	char *a = va_arg(ptr, char *);
-	(void) params;
+	int i, j, counter = 0;
+	int k = 0;
+	char *s = va_arg(args, char*);
+	char alpha[] = {"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"};
+	char beta[] = {"nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM"};
 
-	i = 0;
-	index = 0;
-	while (a[i])
+	if (s == NULL)
+		s = "(null)";
+	for (i = 0; s[i]; i++)
 	{
-		if ((a[i] >= 'A' && a[i] <= 'Z') || (a[i] >= 'a' && a[i] <= 'z'))
+		k = 0;
+		for (j = 0; alpha[j] && !k; j++)
 		{
-			index = a[i] - 65;
-			count += _putchar(arr[index]);
+			if (s[i] == alpha[j])
+			{
+				_putchar(beta[j]);
+				counter++;
+				k = 1;
+			}
 		}
-		else
-			count += _putchar(a[i]);
-		i++;
+		if (!k)
+		{
+			_putchar(s[i]);
+			counter++;
+		}
 	}
-	return (count);
+	return (counter)
 }
