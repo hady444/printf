@@ -137,5 +137,5 @@ int print_rot13(va_list ptr, params_t *params)
 			counter++;
 		}
 	}
-	return (counter)
+	return (counter);
 }
