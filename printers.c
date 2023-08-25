@@ -11,7 +11,7 @@ int _putchar(int c)
 
 	if (c == BUFFER_CLEAR || i >= OUTPUT_BUF_SIZE)
 	{
-		write(1, &buf, i);
+		write(1, buf, i);
 		i = 0;
 	}
 	if (c != BUFFER_CLEAR)
