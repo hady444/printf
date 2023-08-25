@@ -74,6 +74,7 @@ int print_hex(va_list ptr, params_t *params)
 {
 	unsigned long l;
 	char *str;
+	int c = 0;
 
 	if (params->l_modifier)
 		l = (unsigned long) va_arg(ptr, unsigned long);
@@ -84,11 +85,11 @@ int print_hex(va_list ptr, params_t *params)
 	str = convert(l, 16, CONVERT_UNSIGNED | CONVERT_LOWERCASE, params);
 	if (params->hashtag_flag && l)
 	{
-	*--str = 'x';
-	*--str = '0';
+		*--str = 'x';
+		*--str = '0';
 	}
 	params->unsign = 1;
-	return (print_number(str, params));
+	return (c += print_number(str, params));
 }
 /**
  * print_number_right_shift - df
