@@ -63,7 +63,8 @@ int (*handel(char *s))(va_list ptr, params_t *params);
 /**printers*/
 int _putchar(int c);
 int _puts(char *str);
-
+int _isdigit(int c);
+int _strlen(char *str);
 /*print functions*/
 /*
  * int print_char(va_list ptr, params_t *params);

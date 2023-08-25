@@ -38,7 +38,7 @@ char *get_width(char *s, params_t *params, va_list ptr)
 	}
 	else
 	{
-		while (isdigit(*s))
+		while (_isdigit(*s))
 			d = d * 10 + (*s++ - '0');
 	}
 	params->width = d;
@@ -65,7 +65,7 @@ char *get_precision(char *p, params_t *params, va_list ptr)
 	}
 	else
 	{
-		while (isdigit(*p))
+		while (_isdigit(*p))
 			d = d * 10 + (*p++ - '0');
 	}
 	params->precision = d;
@@ -98,8 +98,8 @@ char *convert(long int num, int base, int flags, params_t *params)
 	*ptr = '\0';
 
 	do {
-	*--ptr = array[n % base];
-	n /= base;
+		*--ptr = array[n % base];
+		n /= base;
 	} while (n != 0);
 	if (sign)
 		*--ptr = sign;

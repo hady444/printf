@@ -44,7 +44,7 @@ int print_address(va_list ptr, params_t *params)
  */
 int print_number(char *str, params_t *params)
 {
-	unsigned int i = strlen(str);
+	unsigned int i = _strlen(str);
 	int neg = (!params->unsign && *str == '-');
 
 	if (!params->precision && *str == '0' && !str[1])
