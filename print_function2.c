@@ -88,7 +88,7 @@ int print_S(va_list ptr, params_t *params)
 		return (_puts(NULL_STRING));
 	for (; *str; str++)
 	{
-		if (*str > 0 && *str < 32 && *str >= 127)
+		if ((*str > 0 && *str < 32) || *str >= 127)
 		{
 			sum += _putchar('\\');
 			sum += _putchar('x');
